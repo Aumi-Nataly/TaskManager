@@ -15,7 +15,7 @@ namespace TaskManager.Database.Configuration
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("id").IsRequired();
             builder.Property(b => b.Name).IsRequired().HasColumnName("name");
-            builder.Property(b => b.Description).HasColumnName("name");
+            builder.Property(b => b.Description).HasColumnName("description");
             builder.Property(x => x.Created).HasColumnName("create_date");
             builder.Property(x => x.ManagerId).HasColumnName("manager_id");
             builder.Property(b => b.Status).IsRequired().HasColumnName("status");

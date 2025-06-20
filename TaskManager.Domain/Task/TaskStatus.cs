@@ -1,5 +1,5 @@
 ﻿
-namespace TaskManager.Database.Records
+namespace TaskManager.Domain.Task
 {
     /// <summary>
     /// Статусы задач

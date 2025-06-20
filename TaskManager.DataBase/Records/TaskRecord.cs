@@ -1,6 +1,4 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
-
 namespace TaskManager.Database.Records
 {
     /// <summary>
@@ -14,6 +12,6 @@ namespace TaskManager.Database.Records
         public DateTime? Created { get; set; }
         public int? ManagerId { get; set; }
         public ManagerRecord ResponsibleManager { get; set; }
-        public TaskStatus Status { get; set; }
+        public TaskManager.Domain.Task.TaskStatus Status { get; set; }
     }
 }

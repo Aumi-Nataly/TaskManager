@@ -1,5 +1,4 @@
 ﻿
-
 namespace TaskManager.Domain.Task
 {
     /// <summary>
@@ -10,14 +9,14 @@ namespace TaskManager.Domain.Task
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime Created { get; set; }
-        public string ResponsibleManager { get; set; }
+        public DateTime Created { get; set; }  
+        public int ResponsibleManagerId { get; set; }
         public TaskStatus Status { get; set; }
         public bool Expired { get; set; }
 
 
 
-        public TaskItemChange(int id, string name, string description, DateTime created, string responsibleManager, TaskStatus status)
+        public TaskItemChange(int id, string name, string description, DateTime created, int responsibleManagerId, TaskStatus status)
         { 
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("Name is required", nameof(name));
@@ -26,7 +25,7 @@ namespace TaskManager.Domain.Task
             Name = name;
             Description = description;
             Created = created;
-            ResponsibleManager = responsibleManager;
+            ResponsibleManagerId = responsibleManagerId;
             Status = status;
             Expired = created < DateTime.UtcNow.AddDays(-5) ? true : false;
 
@@ -35,6 +34,23 @@ namespace TaskManager.Domain.Task
         public bool CanBeDone()
         {
             return Status == TaskStatus.Active && !Expired;
+        }
+
+        public void ChangeStatus(TaskStatus status)
+        { 
+            if (Status == TaskStatus.Done)
+                throw new ArgumentNullException("It is forbidden to change the status of completed", nameof(status));
+
+            Status = status;
+        }
+
+        public void UpdateData(string name, string description, int responsibleManagerId)
+        { 
+            if (!string.IsNullOrEmpty(name))
+                throw new ArgumentNullException("Name is required", nameof(name));
+
+            Description = description;
+            ResponsibleManagerId = responsibleManagerId;
         }
     }
 }

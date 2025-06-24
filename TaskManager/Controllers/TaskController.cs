@@ -29,5 +29,12 @@ namespace TaskManager.API.Controllers
            var res = await _mediator.Send(request, cancellationToken);
             return Ok(res);
         }
+
+        [HttpPost("CreateTask")]
+        public async Task<IActionResult> CreateTask(CreateTaskCommand request, CancellationToken cancellationToken)
+        {
+            var res = await _mediator.Send(request, cancellationToken);
+            return Ok(res);
+        }
     }
 }

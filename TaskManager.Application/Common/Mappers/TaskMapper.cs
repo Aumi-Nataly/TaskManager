@@ -11,7 +11,7 @@ namespace TaskManager.Application.Common.Mappers
         public static TaskItemChange ToDomainChange(TaskRecord taskRecord)
         {
             return new TaskItemChange(taskRecord.Id, taskRecord.Name, taskRecord.Description, taskRecord.Created,
-                taskRecord.ResponsibleManager.Id, taskRecord.Status);
+                taskRecord.ManagerId, taskRecord.Status);
         }
 
 

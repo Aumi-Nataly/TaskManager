@@ -10,7 +10,7 @@ namespace TaskManager.Database.Records
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Created { get; set; }
-        public int? ManagerId { get; set; }
+        public int ManagerId { get; set; }
         public ManagerRecord ResponsibleManager { get; set; }
         public TaskManager.Domain.Task.TaskStatus Status { get; set; }
     }

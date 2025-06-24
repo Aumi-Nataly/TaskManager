@@ -20,6 +20,7 @@ builder.Services.AddDbContextFactory<ApplicationDBContext>(opt =>
 });
 
 builder.Services.AddScoped<ITaskChange, TaskChangeService>();
+builder.Services.AddScoped<IManager, ManagerService>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationAssemblyReference).Assembly));

@@ -52,5 +52,12 @@ namespace TaskManager.Domain.Task
             Description = description;
             ResponsibleManagerId = responsibleManagerId;
         }
+
+        public void CreateData()
+        {
+            Created = DateTime.UtcNow;
+            Status = TaskStatus.New;
+            Expired = false;
+        }
     }
 }

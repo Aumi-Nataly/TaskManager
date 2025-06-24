@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 using TaskManager.Application.Common.Mappers;
 using TaskManager.Database;
 using TaskManager.Database.Records;
@@ -46,7 +48,27 @@ namespace TaskManager.Application.Service
              var res = taskDomain.CanBeDone();
 
             return res;
+        }
 
+        public async Task<int> CreateTaskAsync(string name, string description, int ManagerId , CancellationToken cancellationToken)
+        {
+            await using var ctx = _contextFactory.CreateDbContext();
+
+            var task = new TaskRecord
+            {
+                Name = name,
+                Description = description,
+                ManagerId = ManagerId
+            };
+
+            var taskDomain = TaskMapper.ToDomainChange(task);
+            taskDomain.CreateData();
+            TaskMapper.ToDBModelChange(taskDomain, task);
+
+            ctx.TaskRecord.Add(task);
+            await ctx.SaveChangesAsync(cancellationToken);
+
+            return task.Id;
         }
     }
 }

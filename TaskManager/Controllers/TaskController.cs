@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.Commands;
+using TaskManager.Application.Queries;
 
 namespace TaskManager.API.Controllers
 {
@@ -22,5 +23,11 @@ namespace TaskManager.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("CanBeDone")]
+        public async Task<IActionResult> CanBeDone(TaskCanBeDoneQuery request, CancellationToken cancellationToken)
+        {
+           var res = await _mediator.Send(request, cancellationToken);
+            return Ok(res);
+        }
     }
 }

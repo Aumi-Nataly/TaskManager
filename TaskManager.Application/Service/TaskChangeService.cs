@@ -30,5 +30,23 @@ namespace TaskManager.Application.Service
 
             await ctx.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<bool> CanBeDoneAsync(int id, CancellationToken cancellationToken)
+        {
+            await using var ctx = _contextFactory.CreateDbContext();
+
+            IQueryable<TaskRecord> query = ctx.Set<TaskRecord>();
+            var taskDB = await query.Where(t => t.Id == id).FirstOrDefaultAsync();
+
+            if (taskDB == null)
+                throw new InvalidOperationException($"Task not found {id.ToString()}");
+
+            var taskDomain = TaskMapper.ToDomainChange(taskDB);
+
+             var res = taskDomain.CanBeDone();
+
+            return res;
+
+        }
     }
 }
